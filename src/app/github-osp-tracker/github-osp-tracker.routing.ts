@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { VmwareTrackerComponent } from './vmware-tracker/vmware-tracker.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   // {
@@ -8,8 +9,12 @@ const routes: Routes = [
   //   loadChildren: () => import('./vmware-tracker/vmware-tracker.module').then(m => m.VmwareTrackerModule)
   // }
   {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
     path: 'vmware-tracker',
-    component: VmwareTrackerComponent
+    component: VmwareTrackerComponent,
   }
 ];
 
