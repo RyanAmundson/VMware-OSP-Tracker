@@ -31,7 +31,7 @@
   .card-footer {
     flex: 0 0 30px;
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     justify-content: flex-end;
 
 
@@ -41,9 +41,24 @@
       flex-direction:row;
       align-items:center;
       justify-content: flex-start;
+      flex-wrap: wrap;
       // align-self:flex-end;
-      i {
+      div {
         margin:3px;
+        font-size:24px;
+      }
+    }
+
+    .repo-details {
+      display:flex;
+      .repo-forks {
+        margin-right:5px;
+      }
+      .stars-watchers {
+        display:flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: center;
       }
     }
   }

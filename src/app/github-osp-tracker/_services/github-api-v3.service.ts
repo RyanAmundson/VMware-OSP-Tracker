@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpClientJsonpModule } from '@angular/common/http';
 import { Repository } from '../_models/models';
-import { Observable } from 'rxjs';
+import { Observable, of, from, timer } from 'rxjs';
 import * as seedrandom from 'seedrandom';
-import { distinctUntilChanged, shareReplay, tap } from 'rxjs/operators';
+import { distinctUntilChanged, shareReplay, tap, map, debounceTime, debounce } from 'rxjs/operators';
 
 
 
@@ -16,7 +16,9 @@ export class GithubV3Api {
     DEFINITELY_NOT_A_SECRET = 'cc05d870e5314e6288cda72277ba4926ffbdb59d'; // <.<   >.>  
     RANDOM_NUMBER = this.rng();
 
-    simpleCache: Map<string, any> = new Map();
+    cacheTTL = 1200000;//10 minutes
+    simpleCache: Map<any, any> = new Map();
+    cacheLastCleared:number = new Date().getTime();
 
     constructor(private http: HttpClient) {
 
@@ -50,9 +52,9 @@ export class GithubV3Api {
             );
     }
 
-    grabUrlResource(url) {
-        if(this.simpleCache.has(url)) {
-            return this.simpleCache.get(url);
+    grabUrlResource(url: string): Promise<any> {
+        if (this.simpleCache.has(url)) {
+            return Promise.resolve(this.simpleCache.get(url));
         } else {
             return this.http.get(url, {
                 params: {
@@ -63,8 +65,43 @@ export class GithubV3Api {
                 tap((res) => {
                     this.simpleCache.set(url, res);
                 })
-            )
+            ).toPromise();
         }
+    }
+
+    filter(searchTerm, criteria, sort, page, itemsPerPage): Observable<any> {
+        let qS = searchTerm;
+        criteria.forEach((c) => {
+            qS = qS + `+${c}`;
+        })
+        let lookupKey = { q: qS, sort: sort, order: "desc", page: page, per_page: itemsPerPage };
+        if (this.simpleCache.has(lookupKey)) {
+            return of(this.simpleCache.get(lookupKey));
+        } else {
+            return this.http
+            .get<Repository[]>(`https://api.github.com/search/repositories`,
+            {
+                params: lookupKey
+            })
+            .pipe(
+                debounce(() => timer(3000)),
+                tap((res) => {
+                    this.simpleCache.set(lookupKey, res);
+                    this.checkCacheTime();
+                }),
+                );
+            }
+    }
+
+    checkCacheTime() {
+        if( new Date().getTime() - this.cacheLastCleared > 1200000) {
+            this.clearCache();
+        }
+    }
+
+    clearCache() {
+        this.simpleCache.clear();
+        this.cacheLastCleared = new Date().getTime();
     }
 
 

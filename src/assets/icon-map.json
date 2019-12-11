@@ -1,8 +1,24 @@
 {
-    "python": "devicon-python-plain colored",
-    "go": "devicon-go-line colored",
-    "java": "devicon-java-plain colored",
-    "shell": "",
-    "typescript": "devicon-typescript-plain colored",
-    "javascript": "devicon-javascript-plain colored"
+    "i": {
+        "python": "devicon-python-plain colored",
+        "go": "devicon-go-line colored",
+        "java": "devicon-java-plain colored",
+        "shell": "",
+        "typescript": "devicon-typescript-plain colored",
+        "javascript": "devicon-javascript-plain colored",
+        "c++": "devicon-cplusplus-plain colored",
+        "c": "devicon-c-plain colored",
+        "ruby": "devicon-ruby-plain colored",
+        "html": "devicon-html5-plain-wordmark colored",
+        "css": "devicon-css3-plain-wordmark colored",
+        "objective-c":"",
+        "supercollider":"",
+        "ocaml":""
+    },
+    "src": {
+        "perl": "https://img.icons8.com/color/24/000000/perl.png",
+        "shell": "https://img.icons8.com/metro/24/000000/console.png",
+        "puppet":"https://img.icons8.com/material-sharp/24/000000/puppet-2.png",
+        "r":"https://img.icons8.com/ios-filled/24/000000/r.png"
+    }
 }

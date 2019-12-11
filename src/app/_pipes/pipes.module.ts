@@ -4,13 +4,15 @@ import { SearchPipe } from '../_pipes/search.pipe';
 import { FilterPipe } from '../_pipes/filter.pipe';
 import { SafePipe } from './safe.pipe';
 import { IconPipe } from './icon.pipe';
+import { HighlightPipe } from './highlight.pipe';
 
 @NgModule({
   declarations: [
     FilterPipe,
     SearchPipe,
     SafePipe,
-    IconPipe
+    IconPipe,
+    HighlightPipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { IconPipe } from './icon.pipe';
       FilterPipe,
       SearchPipe,
       SafePipe,
-      IconPipe
+      IconPipe,
+      HighlightPipe
   ]
 })
 export class PipesModule { }

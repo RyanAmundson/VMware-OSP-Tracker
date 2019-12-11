@@ -11,7 +11,7 @@ import { GithubV3Api } from '../../_services/github-api-v3.service';
 })
 export class RepoCardComponent implements OnInit {
   @Input() repo: Repository;
-  languagesAsync: Observable<Object>;
+  languagesAsync: Promise<any>;
 
   constructor(private ghV3Api: GithubV3Api) { 
 

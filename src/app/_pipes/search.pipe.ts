@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform, SecurityContext } from '@angular/core';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, debounce } from 'rxjs/operators';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({
@@ -21,9 +21,8 @@ export class SearchPipe implements PipeTransform {
     console.log(searchTerm, priorityKeys, args);
     if (searchTerm === null || searchTerm === '' || searchTerm === undefined) return value;
     return value.pipe(
-      debounceTime(5000),
+      debounce(() => timer(3000)),
       map((list) => this.search(list, searchTerm, priorityKeys)),
-      // map((list) => this.hightlight(list, searchTerm)),
       distinctUntilChanged(),
     );
   }
@@ -41,15 +40,4 @@ export class SearchPipe implements PipeTransform {
       }
     });
   }
-
-  hightlight(list, searchTerm) {
-    let highlightedList = list.map((item, index) => {
-      let stringifiedItem = JSON.stringify(item);
-      this.domSanitizer.sanitize(SecurityContext.HTML, stringifiedItem);
-      stringifiedItem = stringifiedItem.replace(searchTerm, '<mark>' + searchTerm + '</mark>');
-      return JSON.parse(stringifiedItem);
-    });
-    return highlightedList;
-  }
-
 }
