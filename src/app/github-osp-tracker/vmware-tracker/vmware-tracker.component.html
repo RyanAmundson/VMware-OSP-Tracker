@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="clr-row clr-align-items-center clr-justify-content-around">
+    <div class="clr-col-xl-4 clr-col-lg-6 clr-col-md-12 clr-col-sm-12 clr-col-* clr-justify-content-center"  *ngFor="let repo of repositoriesAsync | async; let i = index">
+        <div class="card">
+          <div class="progress top">
+            <progress value="44" max="100"></progress>
+          </div>
+          <div class="card-header">
+            Header
+          </div>
+          <div class="card-block">
+            <div class="card-title">
+              {{ repo?.name }}
+            </div>
+            <div class="card-text">
+              {{ repo?.description }}
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-sm btn-link">Footer Action 1</button>
+            <button class="btn btn-sm btn-link">Footer Action 2</button>
+          </div>
+        </div>
+        <!-- <div class="clr-break-row" *ngIf="i%2 == 0"></div> -->
+    </div>
+  </div>
+</div>
