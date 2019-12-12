@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/hire-worthy-open-source-tracker",
     "ignore": [
       "firebase.json",
       "**/.*",

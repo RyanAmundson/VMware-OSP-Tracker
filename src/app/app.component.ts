@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(private scroll: ScrollService) { }
 
-  notifyScroll(event) {
+  notifyScroll(event): void {
     this.scroll.notify(event);
   }
 }

@@ -16,7 +16,6 @@ export class HighlightPipe implements PipeTransform {
 
   transform(value: Observable<any>, ...args: any[]): any {
     let searchTerm = args[0];
-    console.log(value, searchTerm)
     return value.pipe(
       map((list) => this.hightlight(list, searchTerm)),
     );

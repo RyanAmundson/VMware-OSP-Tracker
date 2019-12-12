@@ -14,11 +14,9 @@ export class SearchPipe implements PipeTransform {
   }
 
   transform(value: Observable<any>, ...args: any[]): Observable<any> {
-    console.log(args)
     let searchTerm = args[0];
     args.shift();
     let priorityKeys = args;
-    console.log(searchTerm, priorityKeys, args);
     if (searchTerm === null || searchTerm === '' || searchTerm === undefined) return value;
     return value.pipe(
       debounce(() => timer(3000)),
@@ -35,7 +33,6 @@ export class SearchPipe implements PipeTransform {
         });
         return finds.length > 0;
       } else {
-        console.log(JSON.stringify(listItem).indexOf(searchTerm) > -1)
         return JSON.stringify(listItem).indexOf(searchTerm) > -1;
       }
     });

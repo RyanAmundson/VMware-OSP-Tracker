@@ -49,7 +49,6 @@ export class VmwareTrackerComponent implements OnInit {
   itemsPerPage = 25;
   page = 1;
   totalPages = 1;
-  heightPerPage:number;
 
 
 
@@ -62,13 +61,9 @@ export class VmwareTrackerComponent implements OnInit {
   }
 
   contentScroll(event) {
-    // console.log(event)
-    //In chrome and some browser scroll is given to body tag
     let pos = event.srcElement.scrollTop + event.srcElement.clientHeight;
     let max = event.srcElement.scrollHeight;
-    // console.log(pos,max,event);
     if(pos > max - 100){
-      console.log("load more");
       this.page = Math.min((this.page + 1), this.totalPages);
     }
   }

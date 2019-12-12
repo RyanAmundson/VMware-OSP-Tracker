@@ -1,1 +1,6 @@
-<app-vmware-tracker></app-vmware-tracker>
+
+<div class="pick-tracker" height="100%" width="100%">
+    <h1>Pick a Tracker</h1>
+    <button *ngIf="!oauthCode" class="btn btn-primary" (click)="authenticate()">Authenticate</button>
+    <div *ngIf="oauthCode">Cors :(</div>
+</div>
