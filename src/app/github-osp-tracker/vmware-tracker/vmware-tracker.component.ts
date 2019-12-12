@@ -13,6 +13,7 @@ import {
   // ...
 } from '@angular/animations';
 import { map, tap, finalize } from 'rxjs/operators';
+import { ScrollService } from 'src/app/_services/scroll.service';
 @Component({
   selector: 'app-vmware-tracker',
   templateUrl: './vmware-tracker.component.html',
@@ -45,35 +46,38 @@ export class VmwareTrackerComponent implements OnInit {
   criteria: string[] = ["org:vmware"];
   totalCount: number = 0;
   loading = false;
-  itemsPerPage = 60;
-  page = 0;
+  itemsPerPage = 25;
+  page = 1;
+  totalPages = 1;
+  heightPerPage:number;
 
 
-  @HostListener("scroll", ["$event"])
-  onElementScroll(event) {
-    console.log(event)
-    //In chrome and some browser scroll is given to body tag
-    let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-    let max = document.documentElement.scrollHeight;
-    // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
-    console.log(pos)
-    if (pos == max) {
-      //Do your action here
-    }
-  }
 
-  constructor(private ghAPI: GithubV3Api) {
-
+  constructor(private ghAPI: GithubV3Api, private scroll: ScrollService) {
+    this.scroll.scrollSubject.subscribe((e) => this.contentScroll(e));
   }
 
   ngOnInit() {
     this.filter();
   }
 
+  contentScroll(event) {
+    // console.log(event)
+    //In chrome and some browser scroll is given to body tag
+    let pos = event.srcElement.scrollTop + event.srcElement.clientHeight;
+    let max = event.srcElement.scrollHeight;
+    // console.log(pos,max,event);
+    if(pos > max - 100){
+      console.log("load more");
+      this.page = Math.min((this.page + 1), this.totalPages);
+    }
+  }
+
   filter() {
     this.loading = true;
     this.repositoriesAsync = this.ghAPI.filter(this.searchString, this.criteria, this.sortBy, 1, 1000).pipe(
       tap((res) => this.totalCount = res.total_count),
+      tap((res) => this.totalPages = Math.ceil(res.total_count / this.itemsPerPage)),
       map((res) => res.items)
     ).pipe(
       finalize(() => {

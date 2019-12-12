@@ -9,10 +9,12 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { PipesModule } from '../_pipes/pipes.module';
+import { GithubOspTrackerComponent } from './github-osp-tracker.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
+    GithubOspTrackerComponent,
   ],
   imports: [
     CommonModule,

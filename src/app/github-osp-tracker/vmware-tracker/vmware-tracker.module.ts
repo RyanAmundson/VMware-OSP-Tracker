@@ -19,6 +19,9 @@ import { RepoCardComponent } from './repo-card/repo-card.component';
     MatIconModule,
     PipesModule
     
+  ],
+  exports: [
+    VmwareTrackerComponent
   ]
 })
 export class VmwareTrackerModule { }

@@ -5,3 +5,12 @@
     right:0;
     bottom:0;
 }
+
+.header {
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    h1 {
+        color:white;
+    }
+}

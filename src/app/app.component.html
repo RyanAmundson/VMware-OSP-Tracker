@@ -1,10 +1,11 @@
 <div class="fixed-full">
   <div class="main-container">
     <div class="alert alert-app-level">
-      ...
     </div>
     <header class="header header-6">
-      ...
+      <h1>
+        Open Source Tracker (The best ever.. totally)
+      </h1>
     </header>
     <nav class="subnav">
       <ul class="nav">
@@ -14,7 +15,7 @@
       </ul>
     </nav>
     <div class="content-container">
-      <div class="content-area">
+      <div class="content-area" (scroll)="notifyScroll($event)">
         <router-outlet></router-outlet>
       </div>
       <nav class="sidenav">

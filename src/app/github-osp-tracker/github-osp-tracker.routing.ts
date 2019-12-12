@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { VmwareTrackerComponent } from './vmware-tracker/vmware-tracker.component';
 import { LoginComponent } from './login/login.component';
+import { GithubOspTrackerComponent } from './github-osp-tracker.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'vmware-tracker',
-  //   loadChildren: () => import('./vmware-tracker/vmware-tracker.module').then(m => m.VmwareTrackerModule)
-  // }
+  {
+    path: '',
+   component: GithubOspTrackerComponent
+  },
   {
     path: 'login',
     component: LoginComponent,

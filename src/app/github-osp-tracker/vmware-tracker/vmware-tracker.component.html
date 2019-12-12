@@ -6,10 +6,10 @@
         <!-- <label for="example" class="clr-control-label">Label</label> -->
         <div class="clr-control-container">
           <div class="clr-input-wrapper">
-            <input type="text" id="example" placeholder="Search" class="clr-input" [(ngModel)]="searchString" (ngModelChange)="filter()"
-              (keydown.escape)="searchString = ''" [ngModelOptions]="{standalone:true}" />
+            <input type="text" id="example" placeholder="Search" class="clr-input" [(ngModel)]="searchString"
+              (ngModelChange)="filter()" (keydown.escape)="searchString = ''" [ngModelOptions]="{standalone:true}" />
             <clr-icon id="search-icon" shape="search" size="16" title="Search"></clr-icon>
-            <clr-control-helper>{{totalCount}} Results</clr-control-helper>
+            <clr-control-helper>{{totalCount}} Results in {{page}} of {{totalPages}}</clr-control-helper>
           </div>
         </div>
       </div>
@@ -18,18 +18,18 @@
         <!-- <label class="clr-control-label">Sort By</label> -->
         <div class="clr-control-container clr-control-inline">
           <div class="clr-radio-wrapper">
-            <input type="radio" id="vertical-radio1" name="radio-full" value="stars" [(ngModel)]="sortBy" (change)="filter()"
-              class="clr-radio">
+            <input type="radio" id="vertical-radio1" name="radio-full" value="stars" [(ngModel)]="sortBy"
+              (change)="filter()" class="clr-radio">
             <label for="vertical-radio1" class="clr-control-label">Stars</label>
           </div>
           <div class="clr-radio-wrapper">
-            <input type="radio" id="vertical-radio2" name="radio-full" value="forks" [(ngModel)]="sortBy" (change)="filter()"
-              class="clr-radio">
+            <input type="radio" id="vertical-radio2" name="radio-full" value="forks" [(ngModel)]="sortBy"
+              (change)="filter()" class="clr-radio">
             <label for="vertical-radio2" class="clr-control-label">Forks</label>
           </div>
           <div class="clr-radio-wrapper">
-            <input type="radio" id="vertical-radio3" name="radio-full" value="updated" [(ngModel)]="sortBy" (change)="filter()"
-              class="clr-radio">
+            <input type="radio" id="vertical-radio3" name="radio-full" value="updated" [(ngModel)]="sortBy"
+              (change)="filter()" class="clr-radio">
             <label for="vertical-radio3" class="clr-control-label">Date</label>
           </div>
           <div class="clr-subtext-wrapper">
@@ -45,7 +45,7 @@
   <div class="frow clr-row clr-align-items-center">
     <div [@cardStagger]
       class="col clr-col-xl-4 clr-col-lg-6 clr-col-md-12 clr-col-sm-12 clr-col-* clr-align-items-start"
-      *ngFor="let repo of repositoriesAsync| highlight:searchString | async | slice:page*itemsPerPage:(page*itemsPerPage) + itemsPerPage; let i = index">
+      *ngFor="let repo of repositoriesAsync| highlight:searchString | async | slice:0:(page*itemsPerPage); let i = index">
       <app-repo-card class="repo-card" [repo]="repo"></app-repo-card>
     </div>
   </div>
